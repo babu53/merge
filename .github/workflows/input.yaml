@@ -1,15 +1,25 @@
-name: input file
+name: Reusable Deploy Workflow
 
 on:
   workflow_call:
-     inputs:
-       directroy:
-       required: true
-       description: this is for create directory
+    inputs:
+      environment:
+        description: 'The environment to deploy to'
+        required: true
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
- directory-creation:
- runs-on: self-hosted
- steps:
-  - name: this is test file
-    run: |
-     mkdir {{inputs.directory}}
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set environment
+        run: echo "Deploying to ${{ inputs.environment }}"
+
+      - name: Deploy
+        run: |
+          echo "Deploying to ${GITHUB_REF} in the ${inputs.environment} environment..."
