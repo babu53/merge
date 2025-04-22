@@ -1,1 +1,15 @@
-
+name: input file
+on:
+  workflow_call:
+    inputs:
+      directroy:
+      required: true
+      description: this is for create directory
+jobs:
+ directory-creation:
+ runs-on: self-hosted
+ steps:
+  - name: this is test file
+    run: |
+     mkdir {{inputs.directory}}
+ 
