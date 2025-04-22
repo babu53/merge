@@ -1,0 +1,25 @@
+name: Reusable Deploy Workflow
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: 'The environment to deploy to'
+        required: true
+    # secrets:
+    #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set environment
+        run: mkdir ${{ inputs.environment }}"
+
+      - name: Deploy
+        run: |
+          echo "Deploying to ${GITHUB_REF} in the ${inputs.environment} environment..."
